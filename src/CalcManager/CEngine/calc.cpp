@@ -8,8 +8,9 @@
 #endif
 
 #include "Header Files/CalcEngine.h"
-
 #include "CalculatorResource.h"
+
+#include <memory>
 
 using namespace std;
 using namespace CalcEngine;
