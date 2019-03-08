@@ -3,6 +3,10 @@
 
 #pragma once
 
+#ifndef _WIN32
+#include "winerror_cross_platform.h"
+#endif
+
 template <typename TType>
 class CalculatorVector 
 {

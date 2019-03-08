@@ -12,3 +12,4 @@
 // #include <intsafe.h>
 #include <array>
 // #include <ppltasks.h>
+#include "winerror_cross_platform.h"
