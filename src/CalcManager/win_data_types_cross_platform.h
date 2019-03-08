@@ -3,10 +3,10 @@
 #include <cstdint>
 
 typedef uint64_t ULONGLONG;
-typedef int INT;
-typedef char CHAR;
-typedef long LONG;
-typedef unsigned char BYTE;
+typedef int32_t INT;
+typedef uint8_t CHAR;
+typedef int32_t LONG;
+typedef uint8_t BYTE;
 typedef unsigned int UINT_PTR;
 typedef unsigned long ULONG_PTR;
 typedef unsigned int ULONG32;
