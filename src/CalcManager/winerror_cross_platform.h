@@ -15,3 +15,4 @@ typedef int32_t HRESULT;
 #define S_FALSE 0x1
 
 #define SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#define FAILED(hr) (((HRESULT)(hr)) < 0)
