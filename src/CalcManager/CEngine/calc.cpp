@@ -11,6 +11,7 @@
 #include "CalculatorResource.h"
 
 #include <memory>
+#include <string_view>
 
 using namespace std;
 using namespace CalcEngine;
@@ -25,8 +26,8 @@ static constexpr long DEFAULT_RADIX = 10;
 
 static constexpr wchar_t DEFAULT_DEC_SEPARATOR = L'.';
 static constexpr wchar_t DEFAULT_GRP_SEPARATOR = L',';
-static constexpr wstring_view DEFAULT_GRP_STR = L"3;0";
-static constexpr wstring_view DEFAULT_NUMBER_STR = L"0";
+static const wstring_view DEFAULT_GRP_STR = L"3;0";
+static const wstring_view DEFAULT_NUMBER_STR = L"0";
 
 // Read strings for keys, errors, trig types, etc.
 // These will be copied from the resources to local memory.
