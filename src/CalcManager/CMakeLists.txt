@@ -12,4 +12,5 @@ add_library(CalculatorEngine
 	CEngine/scioper.cpp
 	CEngine/sciset.cpp
 )
+target_compile_options(CalculatorEngine PRIVATE "-fms-extensions")
 target_include_directories(CalculatorEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
