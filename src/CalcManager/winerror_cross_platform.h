@@ -12,3 +12,5 @@
 #define E_BOUNDS 0x8000000B
 #define S_OK 0x0
 #define S_FALSE 0x1
+
+#define SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
