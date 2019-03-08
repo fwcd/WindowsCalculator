@@ -14,6 +14,10 @@
 *
 \****************************************************************************/
 
+#ifndef _WIN32
+#include "win_data_types_cross_platform.h"
+#endif
+
 #include "CCommand.h"
 #include "EngineStrings.h"
 #include "../Command.h"
