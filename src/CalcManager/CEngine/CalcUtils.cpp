@@ -1,12 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#ifdef _WIN32
 #include "pch.h"
-#else
-#include "pch_cross_platform.h"
-#endif
-
 #include "Header Files/CalcEngine.h"
 
 bool IsOpInRange(WPARAM op, uint32_t x, uint32_t y)

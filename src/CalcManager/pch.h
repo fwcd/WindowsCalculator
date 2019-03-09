@@ -8,8 +8,6 @@
 #endif
 
 #include <assert.h>
-#include <windows.h>
-#include <winerror.h>
 #include <sstream>
 #include <iostream>
 #include <string>
@@ -18,6 +16,22 @@
 #include <limits>
 #include <regex>
 #include <unordered_map>
-#include <intsafe.h>
 #include <array>
+
+#ifdef _WIN32
+
+#include <windows.h>
+#include <winerror.h>
+#include <intsafe.h>
 #include <ppltasks.h>
+
+#else
+
+// #include <intsafe.h>
+// #include <ppltasks.h>
+
+#include "winerror_cross_platform.h"
+#include "win_data_types_cross_platform.h"
+#include "sal_cross_platform.h"
+
+#endif
