@@ -5,9 +5,6 @@
 #include "Header Files/CalcEngine.h"
 #include "CalculatorResource.h"
 
-#include <memory>
-#include <string_view>
-
 using namespace std;
 using namespace CalcEngine;
 

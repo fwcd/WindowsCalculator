@@ -17,6 +17,7 @@
 #include <regex>
 #include <unordered_map>
 #include <array>
+#include <string_view>
 
 #ifdef _WIN32
 
