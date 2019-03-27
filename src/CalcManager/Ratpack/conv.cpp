@@ -377,7 +377,7 @@ PNUMBER numtonRadixx(_In_ PNUMBER a, uint32_t radix)
 {
     PNUMBER pnumret = i32tonum(0, BASEX); // pnumret is the number in internal form.
     PNUMBER num_radix = i32tonum(radix, BASEX);
-    MANTTYPE *ptrdigit = a->mant; // pointer to digit being worked on.
+    MANTTYPE *ptrdigit = a->mant.data(); // pointer to digit being worked on.
 
     // Digits are in reverse order, back over them LSD first.
     ptrdigit += a->cdigit-1;
@@ -654,7 +654,7 @@ PNUMBER StringToNumber(wstring_view numberString, uint32_t radix, int32_t precis
     pnumret->sign = 1L;
     pnumret->cdigit = 0;
     pnumret->exp = 0;
-    MANTTYPE *pmant = pnumret->mant + numberString.length() - 1;
+    MANTTYPE *pmant = pnumret->mant.data() + numberString.length() - 1;
 
     uint8_t state = START; // state is the state of the input state machine.
     wchar_t curChar;
@@ -843,7 +843,7 @@ PNUMBER i32tonum( int32_t ini32, uint32_t radix)
     PNUMBER pnumret= nullptr;
 
     createnum( pnumret, MAX_LONG_SIZE );
-    pmant = pnumret->mant;
+    pmant = pnumret->mant.data();
     pnumret->cdigit = 0;
     pnumret->exp = 0;
     if ( ini32 < 0 )
@@ -886,7 +886,7 @@ PNUMBER Ui32tonum(uint32_t ini32, uint32_t radix)
     PNUMBER pnumret= nullptr;
 
     createnum( pnumret, MAX_LONG_SIZE );
-    pmant = pnumret->mant;
+    pmant = pnumret->mant.data();
     pnumret->cdigit = 0;
     pnumret->exp = 0;
     pnumret->sign = 1;
@@ -1027,7 +1027,7 @@ int32_t numtoi32( _In_ PNUMBER pnum, uint32_t radix )
 {
     int32_t lret = 0;
 
-    MANTTYPE *pmant = pnum->mant;
+    MANTTYPE *pmant = pnum->mant.data();
     pmant += pnum->cdigit - 1;
 
     int32_t expt = pnum->exp;
@@ -1065,7 +1065,7 @@ bool stripzeroesnum(_Inout_ PNUMBER pnum, int32_t starting)
     bool fstrip = false;
 
     // point pmant to the LeastCalculatedDigit
-    pmant=pnum->mant;
+    pmant=pnum->mant.data();
     cdigits=pnum->cdigit;
     // point pmant to the LSD
     if ( cdigits > starting )
@@ -1088,7 +1088,7 @@ bool stripzeroesnum(_Inout_ PNUMBER pnum, int32_t starting)
     if ( fstrip )
         {
         // Remove them.
-        memmove( pnum->mant, pmant, (int)(cdigits*sizeof(MANTTYPE)) );
+        memmove( pnum->mant.data(), pmant, (int)(cdigits*sizeof(MANTTYPE)) );
         // And adjust exponent and digit count accordingly.
         pnum->exp += ( pnum->cdigit - cdigits );
         pnum->cdigit = cdigits;
@@ -1199,7 +1199,7 @@ wstring NumberToString(_Inout_ PNUMBER& pnum, int format, uint32_t radix, int32_
     // Set up all the post rounding stuff.
     bool useSciForm = false;
     int32_t eout = exponent - 1; // Displayed exponent.
-    MANTTYPE *pmant = pnum->mant + pnum->cdigit - 1;
+    MANTTYPE *pmant = pnum->mant.data() + pnum->cdigit - 1;
     // Case where too many digits are to the left of the decimal or
     // FMT_SCIENTIFIC or FMT_ENGINEERING was specified.
     if ((format == FMT_SCIENTIFIC) || (format == FMT_ENGINEERING))

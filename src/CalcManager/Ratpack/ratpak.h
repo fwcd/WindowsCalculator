@@ -66,7 +66,7 @@ typedef struct _number
                     // radix being used.
     int32_t exp;       // The offset of digits from the radix point
                     // (decimal point in radix 10)
-    MANTTYPE mant[];
+    std::vector<MANTTYPE> mant;
                     // This is actually allocated as a continuation of the
                     // NUMBER structure.
 } NUMBER, *PNUMBER, **PPNUMBER;
@@ -218,7 +218,7 @@ _destroynum(x),(x)=nullptr
         int32_t trim = (x)->cdigit - precision-g_ratio;\
             if ( trim > 1 ) \
                 { \
-memmove( (x)->mant, &((x)->mant[trim]), sizeof(MANTTYPE)*((x)->cdigit-trim) ); \
+memmove( (x)->mant.data(), &((x)->mant[trim]), sizeof(MANTTYPE)*((x)->cdigit-trim) ); \
                 (x)->cdigit -= trim; \
                 (x)->exp += trim; \
                 } \
@@ -228,7 +228,7 @@ memmove( (x)->mant, &((x)->mant[trim]), sizeof(MANTTYPE)*((x)->cdigit-trim) ); \
         int32_t trim = (x)->pp->cdigit - (precision/g_ratio) - 2;\
             if ( trim > 1 ) \
                 { \
-memmove( (x)->pp->mant, &((x)->pp->mant[trim]), sizeof(MANTTYPE)*((x)->pp->cdigit-trim) ); \
+memmove( (x)->pp->mant.data(), &((x)->pp->mant[trim]), sizeof(MANTTYPE)*((x)->pp->cdigit-trim) ); \
                 (x)->pp->cdigit -= trim; \
                 (x)->pp->exp += trim; \
                 } \

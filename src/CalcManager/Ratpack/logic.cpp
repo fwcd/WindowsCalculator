@@ -150,9 +150,9 @@ void boolnum( PNUMBER *pa, PNUMBER b, int func )
     c->exp = min( a->exp, b->exp );
     mexp = c->exp;
     c->cdigit = cdigits;
-    pcha = a->mant;
-    pchb = b->mant;
-    pchc = c->mant;
+    pcha = a->mant.data();
+    pchb = b->mant.data();
+    pchc = c->mant.data();
     for ( ;cdigits > 0; cdigits--, mexp++ )
         {
         da = ( ( ( mexp >= a->exp ) && ( cdigits + a->exp - c->exp >

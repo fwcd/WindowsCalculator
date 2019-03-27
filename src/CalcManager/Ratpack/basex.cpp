@@ -103,13 +103,13 @@ void _mulnumx( PNUMBER *pa, PNUMBER b )
     c->sign = a->sign * b->sign;
 
     c->exp = a->exp + b->exp;
-    ptra = a->mant;
-    ptrcoffset = c->mant;
+    ptra = a->mant.data();
+    ptrcoffset = c->mant.data();
 
     for (  iadigit = a->cdigit; iadigit > 0; iadigit-- )
     {
         da =  *ptra++;
-        ptrb = b->mant;
+        ptrb = b->mant.data();
 
         // Shift ptrc, and ptrcoffset, one for each digit
         ptrc = ptrcoffset++;
@@ -292,7 +292,7 @@ void _divnumx( PNUMBER *pa, PNUMBER b, int32_t precision)
     c->exp = (a->cdigit+a->exp) - (b->cdigit+b->exp) + 1;
     c->sign = a->sign * b->sign;
 
-    ptrc = c->mant + thismax;
+    ptrc = c->mant.data() + thismax;
     cdigits = 0;
 
     DUPNUM( rem, a );
@@ -335,9 +335,9 @@ void _divnumx( PNUMBER *pa, PNUMBER b, int32_t precision)
         ptrc--;
         }
     cdigits--;
-    if ( c->mant != ++ptrc )
+    if ( c->mant.data() != ++ptrc )
         {
-        memmove( c->mant, ptrc, (int)(cdigits*sizeof(MANTTYPE)) );
+        memmove( c->mant.data(), ptrc, (int)(cdigits*sizeof(MANTTYPE)) );
         }
 
     if ( !cdigits )

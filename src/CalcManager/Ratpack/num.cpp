@@ -87,9 +87,9 @@ void _addnum( PNUMBER *pa, PNUMBER b, uint32_t radix)
     c->exp = min( a->exp, b->exp );
     mexp = c->exp;
     c->cdigit = cdigits;
-    pcha = a->mant;
-    pchb = b->mant;
-    pchc = c->mant;
+    pcha = a->mant.data();
+    pchb = b->mant.data();
+    pchc = c->mant.data();
 
     // Figure out the sign of the numbers
     if ( a->sign != b->sign )
@@ -156,7 +156,7 @@ void _addnum( PNUMBER *pa, PNUMBER b, uint32_t radix)
             // slower on average.
             c->sign = -1;
             cy = 1;
-            for ( ( cdigits = c->cdigit ), (pchc = c->mant);
+            for ( ( cdigits = c->cdigit ), (pchc = c->mant.data());
                 cdigits > 0;
                 cdigits-- )
                 {
@@ -242,13 +242,13 @@ void _mulnum( PNUMBER *pa, PNUMBER b, uint32_t radix)
     c->sign = a->sign * b->sign;
 
     c->exp = a->exp + b->exp;
-    pcha = a->mant;
-    pchcoffset = c->mant;
+    pcha = a->mant.data();
+    pchcoffset = c->mant.data();
 
     for (  iadigit = a->cdigit; iadigit > 0; iadigit-- )
         {
         da =  *pcha++;
-        pchb = b->mant;
+        pchb = b->mant.data();
 
         // Shift pchc, and pchcoffset, one for each digit
         pchc = pchcoffset++;
@@ -410,7 +410,7 @@ void _divnum( PNUMBER *pa, PNUMBER b, uint32_t radix, int32_t precision)
     c->exp = (a->cdigit + a->exp) - (b->cdigit + b->exp) + 1;
     c->sign = a->sign * b->sign;
 
-    MANTTYPE *ptrc = c->mant + thismax;
+    MANTTYPE *ptrc = c->mant.data() + thismax;
     PNUMBER rem = nullptr;
     PNUMBER tmp = nullptr;
     DUPNUM(rem, a);
@@ -457,9 +457,9 @@ void _divnum( PNUMBER *pa, PNUMBER b, uint32_t radix, int32_t precision)
     }
     cdigits--;
 
-    if (c->mant != ++ptrc)
+    if (c->mant.data() != ++ptrc)
     {
-        memmove(c->mant, ptrc, (int)(cdigits * sizeof(MANTTYPE)));
+        memmove(c->mant.data(), ptrc, (int)(cdigits * sizeof(MANTTYPE)));
     }
 
     // Cleanup table structure
@@ -529,8 +529,8 @@ bool equnum( PNUMBER a, PNUMBER b )
         else
             {
             // OK the exponents match.
-            pa = a->mant;
-            pb = b->mant;
+            pa = a->mant.data();
+            pb = b->mant.data();
             pa += a->cdigit - 1;
             pb += b->cdigit - 1;
             cdigits = max( a->cdigit, b->cdigit );
@@ -596,8 +596,8 @@ bool lessnum( PNUMBER a, PNUMBER b )
             }
         else
             {
-            pa = a->mant;
-            pb = b->mant;
+            pa = a->mant.data();
+            pb = b->mant.data();
             pa += a->cdigit - 1;
             pb += b->cdigit - 1;
             cdigits = max( a->cdigit, b->cdigit );
@@ -638,7 +638,7 @@ bool zernum( PNUMBER a )
     int32_t length;
     MANTTYPE *pcha;
     length = a->cdigit;
-    pcha = a->mant;
+    pcha = a->mant.data();
 
     // loop over all the digits until you find a nonzero or until you run
     // out of digits

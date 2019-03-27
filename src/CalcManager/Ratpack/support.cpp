@@ -695,7 +695,7 @@ void trimit( PRAT *px, int32_t precision)
                 }
             else
                 {
-                memmove( pp->mant, &(pp->mant[trim-pp->exp]), sizeof(MANTTYPE)*(pp->cdigit-trim+pp->exp) );
+                memmove( pp->mant.data(), &(pp->mant[trim-pp->exp]), sizeof(MANTTYPE)*(pp->cdigit-trim+pp->exp) );
                 pp->cdigit -= trim-pp->exp;
                 pp->exp = 0;
                 }
@@ -706,7 +706,7 @@ void trimit( PRAT *px, int32_t precision)
                 }
             else
                 {
-                memmove( pq->mant, &(pq->mant[trim-pq->exp]), sizeof(MANTTYPE)*(pq->cdigit-trim+pq->exp) );
+                memmove( pq->mant.data(), &(pq->mant[trim-pq->exp]), sizeof(MANTTYPE)*(pq->cdigit-trim+pq->exp) );
                 pq->cdigit -= trim-pq->exp;
                 pq->exp = 0;
                 }
